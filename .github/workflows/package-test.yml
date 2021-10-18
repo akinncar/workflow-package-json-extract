@@ -12,11 +12,12 @@ jobs:
         uses: actions/checkout@master
 
       - name: Extract value
-        run: PACKAGE_VERSION=$(cat package.json \
-          | grep version \
-          | head -1 \
-          | awk -F: '{ print $2 }' \
-          | sed 's/[",]//g')
+        run: |
+          PACKAGE_VERSION=$(cat package.json
+          grep version
+          head -1
+          awk -F: '{ print $2 }'
+          sed 's/[",]//g')
 
       - name: Echo version
         run: echo $PACKAGE_VERSION
