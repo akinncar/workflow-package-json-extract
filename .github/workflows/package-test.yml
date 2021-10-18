@@ -7,13 +7,15 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    env:
-      PACKAGE_VERSION: ${{ cat package.json grep version head -1 awk -F: '{ print $2 }'sed 's/[",]//g' }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
 
-      - name: Echo version
-        run: echo "The PACKAGE_VERSION is ${{ PACKAGE_VERSION }}"
-
+      - name: Extract version
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.0.6
+        
+      # From now you can access the version
+      - name: Print version
+        run: echo ${{ steps.extract_version.outputs.version }}
 
